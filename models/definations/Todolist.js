@@ -11,36 +11,8 @@ Todolist.init({
     Taskname:
     {
         type: DataTypes.STRING(30),
-        allowNull: true,
+        allowNull: false,
         unique: true,
-    },
-    Taskdescription:
-    {
-        type: DataTypes.STRING(30),
-        allowNull: true,
-
-    },
-    Taskdeadline:
-    {
-        type: DataTypes.STRING(20),
-        allowNull: true,
-        unique: true,
-    },
-    Taskstrategy:
-    {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-    },
-
-    Taskcompletion:
-    {
-        type: DataTypes.STRING(200),
-        allowNull: false,
-    },
-    Taskremaining:
-    {
-        type: DataTypes.STRING(200),
-        allowNull: false,
     },
     Taskstatus:
     {
@@ -50,6 +22,6 @@ Todolist.init({
 }, {
     sequelize: Dbc,
     timestamps: true,
-    paranoid: true,
+    paranoid: false,
 });
 module.exports = Todolist;

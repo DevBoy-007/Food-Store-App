@@ -2,9 +2,11 @@ const { Models } = require("../models/index");
 module.exports = {
     submittask: async (body) => {
         try {
-            const submitresponse = await Models.todolist.create({ ...body })//cloning 
+
+            //////////
+            const submitresponse = await Models.todolist.create(body)//cloning  
             return {
-                response: "task has submitted",
+                response: "task has submitted"
             }
         }
         catch (error) {
@@ -16,8 +18,8 @@ module.exports = {
 
     displaytask: async () => {
         try {
-            const displayresponse = await Models.todolist.findAll({})
-
+            const displayresponse = await Models.todolist.findAll();
+            console.log(displayresponse)
             return {
                 response: displayresponse
             }
@@ -32,12 +34,10 @@ module.exports = {
     updatetask: async (body) => {
         try {
             const updateresponse = await Models.todolist.update(body, {
-
                 where: {
-                    Taskid: body.Taskid
+                    Taskid: body.Taskid,
                 }
             });
-
             return {
                 response: updateresponse,
             }
@@ -50,15 +50,15 @@ module.exports = {
 
     },
 
-    Deletetask: async (Taskname) => {
+    Deletetask: async (Taskid) => {
         try {
             const deleteresponse = await Models.todolist.destroy({
-
-                truncate: Taskname
-
+                where: {
+                    Taskid: Taskid
+                }
             });
             return {
-                response: `All task has deleted`
+                response: ` task has deleted`
             }
         }
         catch (error) {
@@ -66,5 +66,25 @@ module.exports = {
                 error: error.message,
             }
         }
-    }
+    },
+    checktask: async (Taskid) => {
+
+        try {
+            const checkresponse = await Models.todolist.findAll({
+                attributes: ["Taskid"],
+                where: {
+                    Taskid: Taskid
+                }
+            });
+            return {
+                response: checkresponse[0].Taskid
+            }
+        }
+        catch (error) {
+            return {
+                error: error.message
+            }
+        }
+
+    },
 };

@@ -1,10 +1,17 @@
-const { submittask } = require("../models/Todomodel");
+const { submittask, checktask } = require("../models/Todomodel");
 const { displaytask } = require("../models/Todomodel");
 const { updatetask } = require("../models/Todomodel");
 const { Deletetask } = require("../models/Todomodel");
 module.exports = {
     submittask: async (body) => {
         try {
+            const checking = await checktask(body.Taskid);
+            if (checking.response == body.Taskid) {
+                return {
+                    response: "task has already exist with this id",
+                }
+            }
+            ///////////////////////////
             const submitresponse = await submittask(body);
             if (submitresponse.error) {
                 return {
@@ -62,7 +69,7 @@ module.exports = {
     },
     Deletetask: async (query) => {
         try {
-            const deleteresponse = await Deletetask(query.username);
+            const deleteresponse = await Deletetask(query.Taskid);
             if (deleteresponse.error) {
                 return {
                     error: deleteresponse.error

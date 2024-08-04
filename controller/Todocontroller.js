@@ -6,11 +6,6 @@ const joi = require("joi"); // import joi object from joi module
 const submitvalidationschema = joi.object().keys({
     Taskid: joi.string().required(),
     Taskname: joi.string().required(),
-    Taskdescription: joi.string().required(),
-    Taskdeadline: joi.string().required(),
-    Taskstrategy: joi.string().required(),
-    Taskcompletion: joi.string().required(),
-    Taskremaining: joi.string().required(),
     Taskstatus: joi.string().required(),
 });
 const showvalidationschema = joi.object().keys({
@@ -33,9 +28,9 @@ module.exports = {
             });
         }
         catch (error) {
-            return {
+            return res.send({
                 error: error.message
-            }
+            })
         }
     },
     displaytask: async (req, res) => {
